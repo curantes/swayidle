@@ -4,7 +4,7 @@
 #
 Name     : swayidle
 Version  : 1.5
-Release  : 1
+Release  : 2
 URL      : https://github.com/swaywm/swayidle/archive/1.5.tar.gz
 Source0  : https://github.com/swaywm/swayidle/archive/1.5.tar.gz
 Summary  : No detailed summary available
@@ -12,11 +12,13 @@ Group    : Development/Tools
 License  : MIT
 Requires: swayidle-bin = %{version}-%{release}
 Requires: swayidle-data = %{version}-%{release}
+Requires: swayidle-man = %{version}-%{release}
 BuildRequires : buildreq-meson
 BuildRequires : pkgconfig(libsystemd)
 BuildRequires : pkgconfig(systemd)
 BuildRequires : pkgconfig(wayland-client)
 BuildRequires : pkgconfig(wayland-protocols)
+BuildRequires : scdoc
 
 %description
 # swayidle
@@ -42,6 +44,14 @@ Group: Data
 data components for the swayidle package.
 
 
+%package man
+Summary: man components for the swayidle package.
+Group: Default
+
+%description man
+man components for the swayidle package.
+
+
 %prep
 %setup -q -n swayidle-1.5
 
@@ -50,7 +60,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570220323
+export SOURCE_DATE_EPOCH=1570220561
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -77,3 +87,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/bash-completion/completions/swayidle
 /usr/share/fish/completions/swayidle.fish
 /usr/share/zsh/site-functions/_swayidle
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/swayidle.1
